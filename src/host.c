@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   host.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/06 12:49:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/11 10:46:56 by minjakim         ###   ########.fr       */
+/*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
+/*   Updated: 2021/09/11 10:48:49 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "../include/philo.h"
 
-# include "resource.h"
-# include "types.h"
+int
+	dining()
+{
 
-void		*routine(void *arg);
-int			dining(void);
-uint64_t	get_time(void);
+	return (SUCCESS);
+}
 
-#endif
+int
+	set_the_table()
+{
+
+	return (SUCCESS);
+}

@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:50:44 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/10 22:22:37 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/11 10:23:47 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,19 @@
 # define IS_EATING				" is  eating\n"
 # define IS_SLEEPING			" is  sleeping\n"
 # define IS_THINKING			" is  thinking\n"
-# define IS_ALIVED				" is			alived"
+# define IS_ALIVED				" is  alived"
 # define IS_DIED				" is  died\n"
+
+# define ERR_MALLOC				"Error! malloc failed\n"
+# define ERR_PTHREAD			"Error! pthread_create failed\n"
+# define ERR_EMPTY				"Error! some arguments are empty.\n"
+# define ERR_FORMAT				"Error! wrong format.\n"
+# define ERR_RANGE				"Error! outside the range.\n"
+
+# define U2147483648			0x80000000
+# define DONE					0
+# define SUCCESS				1
+# define FAIL					0
 
 # define ERROR					-1
 # define LOOP					1
