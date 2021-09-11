@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:49:06 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/11 10:18:29 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/11 13:17:24 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,16 @@ typedef struct s_option
 	};
 }	t_option;
 
+typedef struct s_number
+{
+	uint32_t	prev;
+	uint32_t	here;
+	uint32_t	next;
+}	t_number;
+
 typedef struct s_seat
 {
-	union
-	{
-		struct
-		{
-			uint32_t	number;
-			uint32_t	next;
-		};
-		uint32_t	numbers[2];
-	};
+	t_number	number;
 	t_lock		right;
 	t_lock		*left;
 	t_table		*table;
