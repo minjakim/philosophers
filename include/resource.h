@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:50:44 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/11 14:50:21 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/11 16:59:18 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,36 @@
 # include <pthread.h>
 # include <stddef.h>
 
-# define HAS_TAKEN_A_RIGHT_FORK	" has taken a \033[36mright\033[0m fork\n"
-# define HAS_TAKEN_A_LEFT__FORK	" has taken a \033[33mleft\033[0m  fork\n"
-# define IS_EATING				" is  \033[32meating\033[0m\n"
-# define IS_SLEEPING			" is  \033[34msleeping\033[0m\n"
-# define IS_THINKING			" is  \033[35mthingking\033[0m\n"
-# define IS_ALIVED				" is  					alived"
-# define IS_DIED				" is  \033[31mdied\033[0m\n"
+# define COLOR_RED		"\x1b[31m"
+# define COLOR_GREEN	"\x1b[32m"
+# define COLOR_YELLOW	"\x1b[33m"
+# define COLOR_BLUE		"\x1b[34m"
+# define COLOR_MAGENTA	"\x1b[35m"
+# define COLOR_CYAN		"\x1b[36m"
+# define COLOR_RESET	"\x1b[0m"
 
-# define ERR_MALLOC		"\033[31merror:\033[0m malloc failed\n"
-# define ERR_PTHREAD	"\033[31merror:\033[0m pthread_create failed\n"
-# define ERR_EMPTY		"\033[31merror:\033[0m some arguments are empty\n"
-# define ERR_FORMAT		"\033[31merror:\033[0m wrong format\n"
-# define ERR_NOGEUST	"\033[31merror:\033[0m there is no philosopher\n"
-# define ERR_TOOMANY	"\033[31merror:\033[0m there are too many philosophers\n"
+# define MS				"\x1b[33mms\x1b[0m"
+# define RIGHT_FORK		" has taken a right fork\n"
+# define LEFT__FORK		" \x1b[4mhas taken a left  fork\x1b[0m\n"
+# define IS_EATING		" is  \x1b[32meating\x1b[0m\n"
+# define IS_SLEEPING	" is  \x1b[2msleeping\x1b[0m\n"
+# define IS_THINKING	" is  \x1b[36mthingking\x1b[0m\n"
+# define IS_ALIVED		" is  "
+# define IS_DIED		" is  \x1b[31mdied\x1b[0m\n"
 
-# define U2147483648			0x80000000
-# define DONE					0
-# define SUCCESS				1
-# define FAIL					0
+# define ERR_MALLOC		"\x1b[31merror:\x1b[0m malloc failed\n"
+# define ERR_PTHREAD	"\x1b[31merror:\x1b[0m pthread_create failed\n"
+# define ERR_EMPTY		"\x1b[31merror:\x1b[0m some arguments are empty\n"
+# define ERR_FORMAT		"\x1b[31merror:\x1b[0m wrong format\n"
+# define ERR_NOGEUST	"\x1b[31merror:\x1b[0m there is no philosopher\n"
+# define ERR_TOOMANY	"\x1b[31merror:\x1b[0m there are too many philosophers\n"
 
-# define ERROR					-1
-# define LOOP					1
+# define U2147483648	0x80000000
+# define DONE			0
+# define SUCCESS		1
+# define FAIL			0
+
+# define ERROR			-1
+# define LOOP			1
 
 #endif

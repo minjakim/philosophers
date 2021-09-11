@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:31:27 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/11 15:26:16 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/11 16:24:10 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,17 @@ static inline uint64_t
 	return ((buffer << 10) - (buffer << 4) - (buffer << 3) + (tick.tv_usec));
 }
 
-static inline void
-	set_alarm(const uint64_t until, const useconds_t useconds)
-{
-	while (until >= punch_clock())
-		usleep(useconds);
-}
-
 static inline u_int64_t
 	lap_time(const uint64_t timestamp)
 {
 	return ((punch_clock() - timestamp) / 1000);
 }
 
-static inline uint32_t
-	sleeping(const t_option *const option)
+static inline void
+	set_alarm(const uint64_t until, const useconds_t useconds)
 {
-	const uint64_t	until = punch_clock() + option->time_to_sleep;
-
 	while (until >= punch_clock())
-		usleep(option->offset);
-	return (1);
-}
-
-static inline uint32_t
-	eating(const t_option *const option)
-{
-	const uint64_t	until = punch_clock() + option->time_to_eat;
-
-	while (until >= punch_clock())
-		usleep(option->offset);
-	return (1);
+		usleep(useconds);
 }
 
 void
@@ -73,12 +53,12 @@ void
 		while (number.here != seat->right.authorized_key)
 			usleep(option.offset);
 		pthread_mutex_lock(&seat->right.fork);
-		printf("%llums %d"HAS_TAKEN_A_RIGHT_FORK, lap_time(timestamp), number.here);
+		printf("%llu"MS" %d"RIGHT_FORK, lap_time(timestamp), number.here);
 		while (number.here != seat->left->authorized_key)
 			usleep(option.offset);
 		pthread_mutex_lock(&seat->left->fork);
-		printf("%llums %d"HAS_TAKEN_A_LEFT__FORK, lap_time(timestamp), number.here);
-		printf("%llums %d"IS_EATING, lap_time(timestamp), number.here);
+		printf("%llu"MS" %d"LEFT__FORK, lap_time(timestamp), number.here);
+		printf("%llu"MS" %d"IS_EATING, lap_time(timestamp), number.here);
 		set_alarm(punch_clock() + option.time_to_eat, option.offset);
 		if ((check = punch_clock() - start) > option.time_to_die)
 		{
@@ -87,15 +67,15 @@ void
 			break ;
 		}
 		else
-			printf("%llums %d"IS_ALIVED"(%llu)\n", lap_time(timestamp), number.here, check);
+			printf("%llu"MS" %d"IS_ALIVED COLOR_GREEN"(%llu)"COLOR_RESET"\n", lap_time(timestamp), number.here, check);
 		start = punch_clock();
 		seat->right.authorized_key = number.prev;
 		pthread_mutex_unlock(&seat->right.fork);
 		seat->left->authorized_key = number.next;
 		pthread_mutex_unlock(&seat->left->fork);
-		printf("%llums %d"IS_SLEEPING, lap_time(timestamp), number.here);
+		printf("%llu"MS" %d"IS_SLEEPING, lap_time(timestamp), number.here);
 		set_alarm(punch_clock() + option.time_to_sleep, option.offset);
-		printf("%llums %d"IS_THINKING, lap_time(timestamp), number.here);
+		printf("%llu"MS" %d"IS_THINKING, lap_time(timestamp), number.here);
 	};
 	return (NULL);
 }

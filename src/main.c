@@ -6,12 +6,11 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 13:33:07 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/11 15:20:46 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/11 17:01:35 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-#include <stdio.h>
 
 static int
 	initialize(t_table *const table, t_thread **thread)
@@ -75,7 +74,6 @@ static int
 	table->option.time_to_die *= 1000;
 	table->option.time_to_eat *= 1000;
 	table->option.time_to_sleep *= 1000;
-	printf("%d %d %d %d %d\n", table->option.number_of_philos, table->option.time_to_die, table->option.time_to_eat, table->option.time_to_sleep, table->option.number_of_times_to_eat);
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/11 15:12:23 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/11 17:10:36 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 int
 	dining(t_table *const table, t_thread *const thread, int i)
 {
+	if (50 < table->option.number_of_philos)
+		table->option.offset *= 8;
+	if (500 < table->option.number_of_philos)
+		table->option.offset *= 8;
+	if (1000 < table->option.number_of_philos)
+		table->option.offset *= 2;
 	table->board.timestamp = get_time();
 	while (++i < table->option.number_of_philos)
 	{
