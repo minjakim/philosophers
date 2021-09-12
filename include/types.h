@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:49:06 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/11 13:17:24 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/12 11:20:58 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_option
 			uint32_t	time_to_die;
 			uint32_t	time_to_eat;
 			uint32_t	time_to_sleep;
-			uint32_t	number_of_times_to_eat;
+			int32_t		number_of_times_to_eat;
 		};
 		uint32_t	options[5];
 	};
@@ -59,7 +59,9 @@ typedef struct s_number
 
 typedef struct s_seat
 {
+	uint64_t	timecard;
 	t_number	number;
+	uint32_t	voucher;
 	t_lock		right;
 	t_lock		*left;
 	t_table		*table;

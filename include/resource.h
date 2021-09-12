@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:50:44 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/11 16:59:18 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/12 12:00:29 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@
 # define COLOR_BLUE		"\x1b[34m"
 # define COLOR_MAGENTA	"\x1b[35m"
 # define COLOR_CYAN		"\x1b[36m"
+# define COLOR_CYAN		"\x1b[36m"
 # define COLOR_RESET	"\x1b[0m"
 
-# define MS				"\x1b[33mms\x1b[0m"
-# define RIGHT_FORK		" has taken a right fork\n"
-# define LEFT__FORK		" \x1b[4mhas taken a left  fork\x1b[0m\n"
-# define IS_EATING		" is  \x1b[32meating\x1b[0m\n"
-# define IS_SLEEPING	" is  \x1b[2msleeping\x1b[0m\n"
-# define IS_THINKING	" is  \x1b[36mthingking\x1b[0m\n"
+# define MS				"\x1b[33mms\x1b[0m "
+# define RIGHT			" has taken a right fork\n"
+# define LEFT			" \x1b[4mhas taken a left  fork\x1b[0m\n"
+# define EAT			" is  \x1b[32meating\x1b[0m\n"
+# define SLEEP			" is  \x1b[2msleeping\x1b[0m\n"
+# define THINK			" is  \x1b[36mthingking\x1b[0m\n"
+# define DIED			" is  \x1b[31mdied\x1b[0m\n"
 # define IS_ALIVED		" is  "
-# define IS_DIED		" is  \x1b[31mdied\x1b[0m\n"
 
 # define ERR_MALLOC		"\x1b[31merror:\x1b[0m malloc failed\n"
 # define ERR_PTHREAD	"\x1b[31merror:\x1b[0m pthread_create failed\n"
@@ -51,6 +52,7 @@
 # define FAIL			0
 
 # define ERROR			-1
+# define UNLIMIT		-1
 # define LOOP			1
 
 #endif

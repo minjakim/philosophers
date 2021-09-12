@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 13:33:07 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/11 17:01:35 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/12 11:39:04 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static uint32_t
 static int
 	parse_args(int argc, char **const argv, t_table *const table)
 {
-	table->option.number_of_times_to_eat = 0;
+	table->option.number_of_times_to_eat = UNLIMIT;
 	while (--argc > -1)
 	{
 		if (*argv[argc] == '\0' && write(2, ERR_EMPTY, sizeof(ERR_EMPTY) - 1))
@@ -87,18 +87,5 @@ int
 		|| !parse_args(argc, ++argv, &table)
 		|| !initialize(&table, &thread))
 		return (0);
-	set_the_table(&table, 0);
-	if (!dining(&table, thread, -1))
-		return (0);
-	while (LOOP)
-	{
-		if (table.board.dead)
-		{
-			printf("%llums %d is  died(%llu)\n", (table.board.time_of_death - table.board.timestamp) / 1000, table.board.dead, get_time() - table.board.time_of_death);
-			break ;
-		}
-		else
-			usleep(512);
-	}
-	return (0);
+	return (dining(&table, thread, -1));
 }
