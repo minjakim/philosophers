@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 13:33:07 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/12 11:39:04 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/12 14:12:15 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,11 @@ int
 		|| !parse_args(argc, ++argv, &table)
 		|| !initialize(&table, &thread))
 		return (0);
+	if (50 < table.option.number_of_philos)
+		table.option.offset *= 8;
+	if (500 < table.option.number_of_philos)
+		table.option.offset *= 8;
+	if (1000 < table.option.number_of_philos)
+		table.option.offset *= 2;
 	return (dining(&table, thread, -1));
 }

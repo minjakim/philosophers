@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:49:06 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/12 11:20:58 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/12 17:19:50 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,6 @@ typedef struct s_lock
 	uint32_t	authorized_key;
 	t_mutex		fork;
 }	t_lock;
-
-typedef struct s_borad
-{
-	uint64_t	timestamp;
-	uint64_t	time_of_death;
-	uint32_t	dead;
-}	t_board;
 
 typedef struct s_option
 {
@@ -59,7 +52,7 @@ typedef struct s_number
 
 typedef struct s_seat
 {
-	uint64_t	timecard;
+	uint64_t	timestamp;
 	t_number	number;
 	uint32_t	voucher;
 	t_lock		right;
@@ -69,7 +62,7 @@ typedef struct s_seat
 
 struct s_table
 {
-	t_board		board;
+	uint64_t	timestamp;
 	t_option	option;
 	t_seat		*seats;
 };
