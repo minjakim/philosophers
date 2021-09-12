@@ -6,12 +6,13 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:31:27 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/12 19:24:42 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/12 22:15:24 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+#if BONUS == 0
 static inline uint64_t
 	punch_clock(void)
 {
@@ -83,9 +84,10 @@ void
 		{
 			before_meal(seat, standard, option, number);
 			seat->timestamp = punch_clock();
-			after_meal(seat, standard, option, number);
 			--seat->voucher;
+			after_meal(seat, standard, option, number);
 		}
 	}
 	return (NULL);
 }
+#endif

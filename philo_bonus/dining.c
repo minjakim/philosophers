@@ -6,12 +6,13 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/12 17:58:16 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 07:53:10 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+#if BONUS == 1
 static inline uint64_t
 	punch_clock(void)
 {
@@ -19,7 +20,7 @@ static inline uint64_t
 	uint64_t	buffer;
 
 	if (gettimeofday(&tick, NULL) == ERROR)
-		return (UINT64_MAX);
+		exit(1);
 	buffer = (tick.tv_sec << 10) - (tick.tv_sec << 4) - (tick.tv_sec << 3);
 	return ((buffer << 10) - (buffer << 4) - (buffer << 3) + (tick.tv_usec));
 }
@@ -72,47 +73,24 @@ static void
 	while (++i <= table->option.number_of_philos)
 	{
 		seats[i - 1].table = table;
-		seats[i - 1].number.prev = i - 1;
-		seats[i - 1].number.here = i;
-		seats[i - 1].number.next = i + 1;
+		seats[i - 1].number = i;
 		seats[i - 1].voucher = table->option.number_of_times_to_eat;
-		seats[i - 1].right.authorized_key = seats[i - 1].number.here;
-		if (i == table->option.number_of_philos)
-		{
-			seats[i - 1].left = &seats[0].right;
-			seats[i - 1].number.next = 1;
-			if (table->option.number_of_philos & 1)
-				seats[i - 1].right.authorized_key = i;
-		}
-		else
-			seats[i - 1].left = &seats[i].right;
-		if (!(i & 1))
-			seats[i - 1].right.authorized_key = seats[i - 1].number.prev;
 	}
-	seats[0].number.prev = table->option.number_of_philos;
+	sem_unlink(SEM_NAME);
+	table->forks = sem_open(SEM_NAME, O_CREAT, 0644, i);
 }
 
 int
 	dining(t_table *const table, t_thread *const thread, int i)
 {
+	(void)thread;
 	set_the_table(table, 0);
 	table->timestamp = punch_clock();
-	if (table->timestamp != UINT64_MAX)
+	while (++i < table->option.number_of_philos)
 	{
-		while (++i < table->option.number_of_philos)
-		{
-			pthread_mutex_init(&table->seats[i].right.fork, NULL);
-			table->seats[i].timestamp = table->timestamp;
-			if (pthread_create(&thread[i], NULL, routine, &table->seats[i])
-				&& write(2, ERR_PTHREAD, sizeof(ERR_PTHREAD) - 1))
-				return (0);
-			pthread_detach(thread[i]);
-		}
-		if (table->option.number_of_times_to_eat != UNLIMIT)
-			check_the_voucher(table);
-		else
-			while (check_the_status(table) == table->option.number_of_philos)
-				usleep(512);
+		table->seats[i].timestamp = table->timestamp;
+		table->seats[i].pid = fork();
 	}
 	return (0);
 }
+#endif

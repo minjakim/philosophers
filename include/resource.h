@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:50:44 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/12 16:22:56 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 07:55:50 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,18 @@
 # include <pthread.h>
 # include <stddef.h>
 
+# ifndef BONUS
+#  define BONUS 1
+# endif
+
+# if BONUS == 1
+#  include <semaphore.h>
+#  include <signal.h>
+#  define SEM_NAME		"philo"
+# endif
+
 # define MS				"\x1b[33mms\x1b[0m "
+# define FORKS			" \x1b[4mhas taken a forks\x1b[0m\n"
 # define RIGHT			" has taken a right fork\n"
 # define LEFT			" \x1b[4mhas taken a left  fork\x1b[0m\n"
 # define EAT			" is  \x1b[32meating\x1b[0m\n"

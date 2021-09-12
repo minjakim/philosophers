@@ -6,12 +6,13 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/12 17:58:16 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/12 22:16:56 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+#if BONUS == 0
 static inline uint64_t
 	punch_clock(void)
 {
@@ -116,3 +117,4 @@ int
 	}
 	return (0);
 }
+#endif
