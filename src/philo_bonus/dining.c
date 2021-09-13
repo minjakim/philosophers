@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 18:23:14 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 18:35:27 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,19 @@ static inline uint64_t
 }
 
 static inline void
-	check_the_status(const t_table *const table, int i)
+	check_the_status(const t_table *const table)
 {
 	const int32_t	number_of_philos = table->option.number_of_philos;
 	pid_t			pid;
 	int				status;
-	int				j;
+	int				i;
 
-	while (++i < number_of_philos)
+	pid = waitpid(-1, &status, 0);
+	if (status != 0)
 	{
-		pid = waitpid(-1, &status, 0);
-		if (status != 0)
-		{
-			j = -1;
-			while (++j < number_of_philos)
-				kill(table->seats[j], SIGKILL);
-		}
+		i = -1;
+		while (++i < number_of_philos)
+			kill(table->seats[i], SIGKILL);
 	}
 }
 
@@ -87,15 +84,17 @@ static void
 	pthread_detach(thread);
 	while (LOOP)
 	{
+		usleep(512);
 		if ((punch_clock() - table->timestamp) > time_to_die)
 		{
-			sem_wait(table->print);
-			printf("%llu"MS"%d"DIED, (punch_clock() - table->timestamp) \
+			if (table->voucher == UNLIMIT)
+			{
+				sem_wait(table->print);
+				printf("%llu"MS"%d"DIED, (punch_clock() - table->timestamp) \
 				/ 1000, table->number);
+			}
 			exit(1);
 		}
-		else
-			usleep(512);
 	}
 }
 
@@ -117,10 +116,10 @@ int
 		else if (table->seats[i] == 0)
 		{
 			philosopher(table);
-			exit(1);
+			exit(0);
 		}
 	}
-	check_the_status(table, -1);
+	check_the_status(table);
 	return (0);
 }
 #endif
