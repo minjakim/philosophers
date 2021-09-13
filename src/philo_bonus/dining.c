@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 15:32:03 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:58:31 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int
 
 	i = -1;
 	(void)thread;
-	if (set_the_table(table) && write(2, ERR_SEM, sizeof(ERR_SEM) - 1))
+	if (!set_the_table(table) && write(2, ERR_SEM, sizeof(ERR_SEM) - 1))
 		return (0);
 	while (++i < table->option.number_of_philos)
 	{

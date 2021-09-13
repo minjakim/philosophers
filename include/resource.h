@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:49:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 15:33:04 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:53:24 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stddef.h>
 
 # ifndef BONUS
-#  define BONUS 0
+#  define BONUS 1
 # endif
 
 # if BONUS == 1
