@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 13:12:02 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 14:40:13 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void
 	philosopher(t_table *const table)
 {
 	const uint64_t	time_to_die = table->option.time_to_die;
-	t_thread	thread;
+	t_thread		thread;
 
 	if (pthread_create(&thread, NULL, routine, table)
 		&& write(2, ERR_PTHREAD, sizeof(ERR_PTHREAD) - 1))
