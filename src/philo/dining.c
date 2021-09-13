@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 12:51:35 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 13:02:50 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ static inline int
 {
 	const uint64_t	standard = table->timestamp;
 	const t_option	option = table->option;
+	const uint64_t	time_to_die = option.time_to_die;
 	int32_t			i;
 
 	i = -1;
 	while (++i < option.number_of_philos)
 	{
-		if ((punch_clock() - table->seats[i].timestamp) > (uint64_t)option.time_to_die)
+		if ((punch_clock() - table->seats[i].timestamp) > time_to_die)
 		{
 			printf("%llu"MS"%d"DIED, (punch_clock() - standard) / 1000, i + 1);
 			return (i);

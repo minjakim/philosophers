@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 12:51:46 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 13:12:02 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static inline uint64_t
 static inline void
 	check_the_status(const t_table *const table, int i)
 {
-	const uint64_t	standard = table->timestamp;
 	const t_option	option = table->option;
 	pid_t			pid;
 	int				status;
@@ -68,8 +67,9 @@ static void
 }
 
 static void
-	philosopher(t_table *const table, const uint64_t standard)
+	philosopher(t_table *const table)
 {
+	const uint64_t	time_to_die = table->option.time_to_die;
 	t_thread	thread;
 
 	if (pthread_create(&thread, NULL, routine, table)
@@ -78,7 +78,7 @@ static void
 	pthread_detach(thread);
 	while (LOOP)
 	{
-		if ((punch_clock() - table->timestamp) > table->option.time_to_die)
+		if ((punch_clock() - table->timestamp) > time_to_die)
 			exit(1);
 		else
 			usleep(512);
@@ -86,7 +86,7 @@ static void
 }
 
 int
-	dining(t_table *const table, t_thread *const thread, int i)
+	dining(t_table *const table, t_thread *const thread)
 {
 	int	i;
 
@@ -101,7 +101,7 @@ int
 			exit(1);
 		else if (table->seats[i] == 0)
 		{
-			philosopher(table, table->timestamp);
+			philosopher(table);
 			exit(1);
 		}
 	}
