@@ -6,7 +6,7 @@
 #    By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/12 16:54:06 by minjakim          #+#    #+#              #
-#    Updated: 2021/09/13 14:38:55 by minjakim         ###   ########.fr        #
+#    Updated: 2021/09/13 14:58:41 by minjakim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,14 +41,14 @@ $(OBJ_DIR)/%.o:$(SRC_DIR)/%.c
 $(NAME)			:	$(OBJS)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(OBJS) -o $(NAME)
 
-bonus			:	all
+bonus			:	fclean all
 
 clean			:
 					$(RM) -rf $(OBJ_DIR)
 
 fclean			:	clean
-					$(RM) -f $(NAME)
-					$(RM) -f $(NAME)_bonus
+					$(RM) -f philo
+					$(RM) -f philo_bonus
 
 re				:	fclean	all
 
