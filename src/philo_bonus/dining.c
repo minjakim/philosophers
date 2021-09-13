@@ -6,12 +6,11 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 18:04:52 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 18:23:14 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/philo.h"
-#include <sys/semaphore.h>
 
 #if BONUS == 1
 static inline uint64_t
@@ -39,10 +38,6 @@ static inline void
 		pid = waitpid(-1, &status, 0);
 		if (status != 0)
 		{
-			//while (++j < number_of_philos)
-			//	if (pid == table->seats[j] && printf("%llu"MS"%d"DIED, \
-			//				(punch_clock() - table->timestamp) / 1000, j + 1))
-			//		break ;
 			j = -1;
 			while (++j < number_of_philos)
 				kill(table->seats[j], SIGKILL);
@@ -72,6 +67,7 @@ static int
 	table->left = sem_open(SEM_LEFT, O_CREAT, 0644, n);
 	if (table->left == SEM_FAILED)
 		return (FAIL);
+	sem_unlink(SEM_PRINT);
 	table->print = sem_open(SEM_PRINT, O_CREAT, 0644, 1);
 	if (table->print == SEM_FAILED)
 		return (FAIL);
@@ -121,7 +117,7 @@ int
 		else if (table->seats[i] == 0)
 		{
 			philosopher(table);
-			exit(0);
+			exit(1);
 		}
 	}
 	check_the_status(table, -1);
