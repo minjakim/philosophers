@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 13:33:07 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 07:43:39 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 12:37:07 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ static int
 	table->seats = malloc(sizeof(t_seat) * table->option.number_of_philos);
 	if (table->seats == NULL && write(2, ERR_MALLOC, sizeof(ERR_MALLOC) - 1))
 		return (FAIL);
-	if (BONUS == 0)
-	{
-		*thread = malloc(sizeof(t_thread) * table->option.number_of_philos);
-		if (thread == NULL && write(2, ERR_MALLOC, sizeof(ERR_MALLOC) - 1))
-			return (FAIL);
-	}
+	if (BONUS == 1)
+		return (SUCCESS);
+	*thread = malloc(sizeof(t_thread) * table->option.number_of_philos);
+	if (thread == NULL && write(2, ERR_MALLOC, sizeof(ERR_MALLOC) - 1))
+		return (FAIL);
 	return (SUCCESS);
 }
 
@@ -64,7 +63,7 @@ static int
 		if (*argv[argc] == '\0' && write(2, ERR_EMPTY, sizeof(ERR_EMPTY) - 1))
 			return (FAIL);
 		table->option.options[argc] = checktoi(argv[argc]);
-		if (table->option.options[argc] == ERROR)
+		if (table->option.options[argc] == 0)
 			return (FAIL);
 	}
 	if (table->option.number_of_philos == 0
@@ -87,7 +86,7 @@ int
 	t_table		table;
 
 	if (((--argc == 0 || argc < 4 || 5 < argc) \
-		&& write(2, ERR_FORMAT, sizeof(ERR_FORMAT)))
+		&& write(2, ERR_FORMAT, sizeof(ERR_FORMAT) - 1))
 		|| !parse_args(argc, ++argv, &table)
 		|| !initialize(&table, &thread))
 		return (0);
@@ -97,5 +96,5 @@ int
 		table.option.offset *= 8;
 	if (1000 < table.option.number_of_philos)
 		table.option.offset *= 2;
-	return (dining(&table, thread, -1));
+	return (dining(&table, thread));
 }

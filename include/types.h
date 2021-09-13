@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:49:06 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 07:56:39 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 12:48:02 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ typedef struct s_option
 	{
 		struct
 		{
-			uint32_t	number_of_philos;
-			uint32_t	time_to_die;
-			uint32_t	time_to_eat;
-			uint32_t	time_to_sleep;
-			int32_t		number_of_times_to_eat;
+			int32_t	number_of_philos;
+			int32_t	time_to_die;
+			int32_t	time_to_eat;
+			int32_t	time_to_sleep;
+			int32_t	number_of_times_to_eat;
 		};
 		uint32_t	options[5];
 	};
@@ -56,7 +56,7 @@ typedef struct s_seat
 {
 	uint64_t	timestamp;
 	t_number	number;
-	uint32_t	voucher;
+	int32_t		voucher;
 	t_lock		right;
 	t_lock		*left;
 	t_table		*table;
@@ -70,21 +70,16 @@ struct s_table
 };
 # else
 typedef sem_t			t_sem;
-
-typedef struct s_seat
-{
-	uint64_t	timestamp;
-	uint32_t	number;
-	pid_t		pid;
-	uint32_t	voucher;
-	t_table		*table;
-}	t_seat;
+typedef pid_t			t_seat;
 
 struct s_table
 {
 	uint64_t	timestamp;
+	uint32_t	number;
+	int32_t		voucher;
 	t_option	option;
-	t_sem		*forks;
+	t_sem		*right;
+	t_sem		*left;
 	t_seat		*seats;
 };
 # endif

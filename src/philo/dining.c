@@ -6,12 +6,13 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/12 17:58:16 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 12:51:35 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../../include/philo.h"
 
+#if BONUS == 0
 static inline uint64_t
 	punch_clock(void)
 {
@@ -29,12 +30,12 @@ static inline int
 {
 	const uint64_t	standard = table->timestamp;
 	const t_option	option = table->option;
-	int				i;
+	int32_t			i;
 
 	i = -1;
 	while (++i < option.number_of_philos)
 	{
-		if ((punch_clock() - table->seats[i].timestamp) > option.time_to_die)
+		if ((punch_clock() - table->seats[i].timestamp) > (uint64_t)option.time_to_die)
 		{
 			printf("%llu"MS"%d"DIED, (punch_clock() - standard) / 1000, i + 1);
 			return (i);
@@ -46,7 +47,6 @@ static inline int
 static inline void
 	check_the_voucher(const t_table *const table)
 {
-	const uint64_t	standard = table->timestamp;
 	const t_option	option = table->option;
 	int32_t			no_voucher;
 	int32_t			i;
@@ -93,8 +93,11 @@ static void
 }
 
 int
-	dining(t_table *const table, t_thread *const thread, int i)
+	dining(t_table *const table, t_thread *const thread)
 {
+	int	i;
+
+	i = -1;
 	set_the_table(table, 0);
 	table->timestamp = punch_clock();
 	if (table->timestamp != UINT64_MAX)
@@ -116,3 +119,4 @@ int
 	}
 	return (0);
 }
+#endif

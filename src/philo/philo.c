@@ -6,12 +6,13 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:31:27 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/12 19:24:42 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 12:51:40 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../../include/philo.h"
 
+#if BONUS == 0
 static inline uint64_t
 	punch_clock(void)
 {
@@ -41,6 +42,8 @@ static inline void
 	pthread_mutex_unlock(&seat->left->fork);
 	printf("%llu"MS"%d"SLEEP, (punch_clock() - standard) / 1000, number.here);
 	set_alarm(punch_clock() + option.time_to_sleep, option.offset);
+	if (seat->voucher == 0)
+		return ;
 	printf("%llu"MS"%d"THINK, (punch_clock() - standard) / 1000, number.here);
 }
 
@@ -83,9 +86,10 @@ void
 		{
 			before_meal(seat, standard, option, number);
 			seat->timestamp = punch_clock();
-			after_meal(seat, standard, option, number);
 			--seat->voucher;
+			after_meal(seat, standard, option, number);
 		}
 	}
 	return (NULL);
 }
+#endif

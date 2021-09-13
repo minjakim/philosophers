@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:50:44 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 07:55:50 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 12:21:51 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@
 # include <stddef.h>
 
 # ifndef BONUS
-#  define BONUS 1
+#  define BONUS 0
 # endif
 
 # if BONUS == 1
 #  include <semaphore.h>
 #  include <signal.h>
 #  define SEM_NAME		"philo"
+#  define SEM_RIGHT		"right"
+#  define SEM_LEFT		"left"
 # endif
 
 # define MS				"\x1b[33mms\x1b[0m "
@@ -41,6 +43,7 @@
 # define DIED			" is  \x1b[31mdied\x1b[0m\n"
 
 # define ERR_MALLOC		"\x1b[31merror:\x1b[0m malloc failed\n"
+# define ERR_FORK		"\x1b[31merror:\x1b[0m fork failed\n"
 # define ERR_PTHREAD	"\x1b[31merror:\x1b[0m pthread_create failed\n"
 # define ERR_EMPTY		"\x1b[31merror:\x1b[0m some arguments are empty\n"
 # define ERR_FORMAT		"\x1b[31merror:\x1b[0m wrong format\n"
