@@ -6,7 +6,7 @@
 #    By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/12 16:54:06 by minjakim          #+#    #+#              #
-#    Updated: 2021/09/13 14:33:26 by minjakim         ###   ########.fr        #
+#    Updated: 2021/09/13 14:36:49 by minjakim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ clean			:
 					$(RM) -rf $(OBJ_DIR)
 
 fclean			:	clean
-	@$(RM) $(NAME)
+					$(RM) -f $(NAME)
+					$(RM) -f $(NAME)_bonus
 
 re				:	fclean	all
 
