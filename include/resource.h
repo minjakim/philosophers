@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:49:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 13:01:24 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:33:04 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 
 # define ERR_MALLOC		"\x1b[31merror:\x1b[0m malloc failed\n"
 # define ERR_FORK		"\x1b[31merror:\x1b[0m fork failed\n"
+# define ERR_SEM		"\x1b[31merror:\x1b[0m semaphore failed\n"
+# define ERR_MUTEX		"\x1b[31merror:\x1b[0m mutex failed\n"
 # define ERR_PTHREAD	"\x1b[31merror:\x1b[0m pthread_create failed\n"
 # define ERR_EMPTY		"\x1b[31merror:\x1b[0m some arguments are empty\n"
 # define ERR_FORMAT		"\x1b[31merror:\x1b[0m wrong format\n"

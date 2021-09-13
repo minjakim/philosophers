@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 13:02:50 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:37:40 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ static inline int
 	check_the_status(const t_table *const table)
 {
 	const uint64_t	standard = table->timestamp;
-	const t_option	option = table->option;
-	const uint64_t	time_to_die = option.time_to_die;
+	const uint64_t	time_to_die = table->option.time_to_die;
+	const int32_t	number_of_philos = table->option.number_of_philos;
 	int32_t			i;
 
 	i = -1;
-	while (++i < option.number_of_philos)
+	while (++i < number_of_philos)
 	{
 		if ((punch_clock() - table->seats[i].timestamp) > time_to_die)
 		{
@@ -42,25 +42,25 @@ static inline int
 			return (i);
 		}
 	}
-	return (option.number_of_philos);
+	return (number_of_philos);
 }
 
 static inline void
 	check_the_voucher(const t_table *const table)
 {
-	const t_option	option = table->option;
+	const int32_t	number_of_philos = table->option.number_of_philos;
 	int32_t			no_voucher;
 	int32_t			i;
 
-	while (check_the_status(table) == table->option.number_of_philos)
+	while (check_the_status(table) == number_of_philos)
 	{
 		usleep(512);
 		i = -1;
 		no_voucher = 0;
-		while (++i < option.number_of_philos)
+		while (++i < number_of_philos)
 			if (table->seats[i].voucher == 0)
 				++no_voucher;
-		if (no_voucher == option.number_of_philos)
+		if (no_voucher == number_of_philos)
 			break ;
 	}
 }
@@ -105,7 +105,9 @@ int
 	{
 		while (++i < table->option.number_of_philos)
 		{
-			pthread_mutex_init(&table->seats[i].right.fork, NULL);
+			if (pthread_mutex_init(&table->seats[i].right.fork, NULL) != 0
+				&& write(2, ERR_MUTEX, sizeof(ERR_MUTEX) - 1))
+				return (0);
 			table->seats[i].timestamp = table->timestamp;
 			if (pthread_create(&thread[i], NULL, routine, &table->seats[i])
 				&& write(2, ERR_PTHREAD, sizeof(ERR_PTHREAD) - 1))
