@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:49:06 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 12:48:02 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 17:51:53 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ struct s_table
 	t_option	option;
 	t_sem		*right;
 	t_sem		*left;
+	t_sem		*print;
 	t_seat		*seats;
 };
 # endif

@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/06 12:49:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 16:31:59 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 18:05:41 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stddef.h>
 
 # ifndef BONUS
-#  define BONUS 1
+#  define BONUS 0
 # endif
 
 # if BONUS == 1
@@ -31,6 +31,7 @@
 #  define SEM_NAME		"philo"
 #  define SEM_RIGHT		"right"
 #  define SEM_LEFT		"left"
+#  define SEM_PRINT		"print"
 # endif
 
 # define MS				"\x1b[33mms\x1b[0m "
