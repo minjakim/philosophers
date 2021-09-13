@@ -6,7 +6,7 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:31:27 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 12:51:51 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 16:24:11 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void
 	t_table *const		table = (t_table *)arg;
 	const uint64_t		standard = table->timestamp;
 
-	table->timestamp = punch_clock();
 	if (table->voucher == UNLIMIT)
 	{
 		while (UNLIMIT)

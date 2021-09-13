@@ -6,12 +6,11 @@
 /*   By: minjakim <minjakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/11 10:28:34 by minjakim          #+#    #+#             */
-/*   Updated: 2021/09/13 15:58:31 by minjakim         ###   ########.fr       */
+/*   Updated: 2021/09/13 16:32:23 by minjakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/philo.h"
-#include <sys/semaphore.h>
 
 #if BONUS == 1
 static inline uint64_t
@@ -56,15 +55,19 @@ static int
 	int	n;
 
 	n = table->option.number_of_philos >> 1;
+	if (table->option.number_of_philos == 1)
+		n = 1;
 	table->number = 0;
 	table->voucher = table->option.number_of_times_to_eat;
 	sem_unlink(SEM_RIGHT);
 	table->right = sem_open(SEM_RIGHT, O_CREAT, 0644, n);
 	if (table->right == SEM_FAILED)
 		return (FAIL);
-	sem_unlink(SEM_LEFT);
-	if (table->option.number_of_philos & 1)
+	if (table->option.number_of_philos == 1)
+		--n;
+	else if (table->option.number_of_philos & 1)
 		++n;
+	sem_unlink(SEM_LEFT);
 	table->left = sem_open(SEM_LEFT, O_CREAT, 0644, n);
 	if (table->left == SEM_FAILED)
 		return (FAIL);
@@ -75,7 +78,7 @@ static int
 static void
 	philosopher(t_table *const table)
 {
-	const uint64_t	time_to_die = table->option.time_to_die;
+	const uint32_t	time_to_die = table->option.time_to_die;
 	t_thread		thread;
 
 	if (pthread_create(&thread, NULL, routine, table)
