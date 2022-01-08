@@ -44,13 +44,12 @@ static uint32_t
 			return (0);
 	i = 0;
 	digit = 0;
-	while (*str && (convert(&a, str) < 10 && ++digit < 11))
+	while (*str && ((convert(&a, str) < 10) && (++digit < 11)))
 		(i = (i << 1) + (i << 3) + a) && str++;
-	if (*str && write(2, ERR_FORMAT, sizeof(ERR_FORMAT)))
-		return (ERROR);
-	if (((10 < digit) || (INT32_MAX < i))
-		&& write(2, ERR_FORMAT, sizeof(ERR_FORMAT)))
-		return (ERROR);
+	if (*str)
+		return (INT32_MAX);
+	if ((10 < digit) || (INT32_MAX < i))
+		return (INT32_MAX);
 	return (i);
 }
 
@@ -60,23 +59,21 @@ static int
 	table->option.number_of_times_to_eat = UNLIMIT;
 	while (--argc > -1)
 	{
-		if (*argv[argc] == '\0' && write(2, ERR_EMPTY, sizeof(ERR_EMPTY) - 1))
-			return (FAIL);
+		if (*argv[argc] == '\0')
+			return (write(STDERR_FILENO, ERR_EMPTY, sizeof(ERR_EMPTY) - 1));
 		table->option.options[argc] = checktoi(argv[argc]);
-		if (table->option.options[argc] == 0)
-			return (FAIL);
+		if (table->option.options[argc] == INT32_MAX)
+			return (write(STDERR_FILENO, ERR_FORMAT, sizeof(ERR_FORMAT) -1));
 	}
-	if (table->option.number_of_philos == 0
-		&& write(2, ERR_NOGEUST, sizeof(ERR_NOGEUST) - 1))
-		return (FAIL);
-	if (table->option.number_of_philos > 3000
-		&& write(2, ERR_TOOMANY, sizeof(ERR_TOOMANY) - 1))
-		return (FAIL);
+	if (table->option.number_of_philos == 0)
+		return (write(STDERR_FILENO, ERR_NOGEUST, sizeof(ERR_NOGEUST) - 1));
+	if (table->option.number_of_philos > 3000)
+		return (write(STDERR_FILENO, ERR_TOOMANY, sizeof(ERR_TOOMANY) - 1));
 	table->option.offset = 32;
 	table->option.time_to_die *= 1000;
 	table->option.time_to_eat *= 1000;
 	table->option.time_to_sleep *= 1000;
-	return (SUCCESS);
+	return (OK);
 }
 
 int
@@ -85,10 +82,10 @@ int
 	t_thread	*thread;
 	t_table		table;
 
-	if (((--argc == 0 || argc < 4 || 5 < argc) \
+	if (((--argc == 0 || argc <= 3 || 5 < argc) 
 		&& write(2, ERR_FORMAT, sizeof(ERR_FORMAT) - 1))
-		|| !parse_args(argc, ++argv, &table)
-		|| !initialize(&table, &thread))
+		|| parse_args(argc, ++argv, &table) != OK
+		|| initialize(&table, &thread) != SUCCESS)
 		return (0);
 	if (50 < table.option.number_of_philos)
 		table.option.offset *= 8;

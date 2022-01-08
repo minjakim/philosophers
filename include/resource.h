@@ -55,6 +55,7 @@
 
 # define U2147483648	0x80000000
 # define DONE			0
+# define OK				0
 # define SUCCESS		1
 # define FAIL			0
 
